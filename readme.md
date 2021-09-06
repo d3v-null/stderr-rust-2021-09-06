@@ -32,7 +32,7 @@ jupyter notebook --generate-config
 set password
 
 ```bash
-jupyter notebook password
+jupyter notebook password --generate-config
 ```
 
 edit config 
@@ -46,8 +46,17 @@ echo 'c.NotebookApp.password = "'$(jq '.NotebookApp.password' ${HOME}/.jupyter/j
 EOF
 ```
 
-download uvfits sample file
+install cfitsio
 
 ```bash
-wget $'https://github.com/MWATelescope/Birli/raw/main/tests/data/1196175296_mwa_ord/1196175296.uvfits'
+wget http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-3.49.tar.gz
+tar -zxvf cfitsio-3.49.tar.gz
+cd cfitsio-3.49/
+CFLAGS="-O3" ./configure --prefix=/usr/local --enable-reentrant --enable-ssse3 --enable-sse2
+make -j
+sudo make install
 ```
+
+references:
+
+https://igiagkiozis.github.io/plotly/content/fundamentals/jupyter_support.html
